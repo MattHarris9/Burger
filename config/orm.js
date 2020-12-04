@@ -31,7 +31,17 @@ var orm = {
 
     },
 
-    deleteOne: function() {
+    deleteOne: function(table, condition, cb) {
+        var querystring = "DELETE FROM " + table;
+        querystring += "WHERE ";
+        querystring += condition;
+
+        connnection.query(querystring, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(results);
+        });
         
     }
     
