@@ -1,4 +1,4 @@
-const { query } = require("express");
+const express = require("express");
 var connection = require("./connection.js");
 
 // Helper function for SQL syntax.
@@ -34,27 +34,28 @@ function printQuestionMarks(num) {
 
 var orm = {
     selectAll: function(tableInput, cb) {
-        var queryString = "SELECT * FROM " + tableInput + ";";
+        var queryString = "SELECT * FROM  " + tableInput + ";";
         connection.query(queryString, function(err, result) {
             if (err) {
                 throw(err);
             }
-            cb(result);
+            callback(result);
         });
 
     },
 
     insertOne: function(table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
-        
+
         queryString += " (";
-        queryString += cols.toString();
+        queryString += cols.toString;
         queryString += ") ";
         queryString += "VALUES (";
         queryString += printQuestionMarks(vals.length);
         queryString += ") ";
-
+        
         console.log(queryString);
+    
 
         connection.query(queryString, vals, function (err, result) {
             if (err) {
@@ -67,36 +68,25 @@ var orm = {
     },
 
     updateOne: function(table, objColVals, condition, cb) {
-        var queryString = "UPDATE" + table;
+        var queryString = "UPDATE " + table;
 
-        queryString += " SET ";
+        queryString += "SET";
         queryString += objToSql(objColVals);
         queryString += " WHERE ";
         queryString += condition;
 
         console.log(queryString);
-        ConnectionOptions.query(queryString, function(err, result) {
+        
+        connection.query(queryString, function(err, result) {
             if (err) {
                 throw err;
             }
 
             cb(result);
         });
-    },
-
-    deleteOne: function(table, condition, cb) {
-        var querystring = "DELETE FROM " + table;
-        querystring += "WHERE ";
-        querystring += condition;
-
-        connnection.query(querystring, function (err, result) {
-            if (err) {
-                throw err;
-            }
-            cb(data);
-        });
-        
     }
+
+
     
 
 };
