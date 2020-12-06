@@ -32,13 +32,13 @@ $(function () {
             type: "POST",
             data: newBurger
         }).then(function () {
-            console.log("created a new burger"):
+            console.log("created a new burger");
 
             location.reload();
         });
     });
 
-    $(".delete-burger").("click", function (){
+    $(".delete-burger").on("click", function (){
         var id= $(this).data("id");
 
         $.ajax("/burgers" + id, {
@@ -50,7 +50,7 @@ $(function () {
         });
     });
 
-}):
+});
 
 
 
